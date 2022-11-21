@@ -58,14 +58,6 @@ public class FormularioClientes extends JFrame {
         ps.setString(3, apellidos);
         ps.executeUpdate();
     }
-
-    public static void createFormulario() {
-        FormularioClientes form = new FormularioClientes();
-        form.setExtendedState(form.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-        form.setVisible(true);
-        form.setDefaultCloseOperation(EXIT_ON_CLOSE);
-    }
-
     private void botonActualizar() {
         botonActualizar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -75,7 +67,6 @@ public class FormularioClientes extends JFrame {
             }
         });
     }
-
     private void botonBorrar() {
         borrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -102,7 +93,6 @@ public class FormularioClientes extends JFrame {
             }
         });
     }
-
     private void comboBoxSetItems() {
         DefaultComboBoxModel<Object> comboModel = new DefaultComboBoxModel<>();
         comboModel.addElement("DNI");

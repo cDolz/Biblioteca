@@ -74,8 +74,8 @@ public class LibrosActions {
             ps.setInt(1, Integer.parseInt(id[0]));
             ps.execute();
             llenarListaAction(lista);
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al borrar el campo.");
+        } catch (SQLException | NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Error al borrar el campo.","ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
 

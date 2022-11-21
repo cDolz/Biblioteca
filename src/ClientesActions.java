@@ -75,8 +75,8 @@ public class ClientesActions {
             ps.setString(1, dni[0]);
             ps.execute();
             llenarLista(lista);
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al borrar el campo.");
+        } catch (SQLException | NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Error al borrar el campo.","ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
 
