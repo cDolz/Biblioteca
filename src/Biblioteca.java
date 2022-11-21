@@ -3,6 +3,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
+
 public class Biblioteca {
 
     public static Connection getCon() {
@@ -13,9 +15,8 @@ public class Biblioteca {
 
     public static void main(String[] args) {
         conectar();
-        Formulario.createFormulario();
+        Menu.createMenuAction();
     }
-
     private static void conectar() {
         try {
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/biblioteca", "root", "");
