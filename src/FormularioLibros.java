@@ -23,6 +23,7 @@ public class FormularioLibros extends JFrame {
     private JLabel buscarPor;
     private JComboBox<Object> comboSelect;
     private JTextField textBuscar;
+    private JButton botonMenu;
 
     public FormularioLibros() {
         setContentPane(panelFormulario);
@@ -33,10 +34,15 @@ public class FormularioLibros extends JFrame {
         botonBorrar();
         botonActualizar();
         textoBuscar();
+        botonMenu.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LibrosActions.botonMenuAction();
+            }
+        });
     }
 
     private void textoBuscar() {
-
         textBuscar.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -66,16 +72,13 @@ public class FormularioLibros extends JFrame {
         });
     }
 
-
     private void botonBorrar() {
         borrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 LibrosActions.borrarAction(lista);
-                LibrosActions.limpiarAction(textNombre, textAutor, textFechaPublicacion, textEditorial);
             }
         });
     }
-
 
     private void botonLimpiar() {
         botonLimpiar.addActionListener(new ActionListener() {

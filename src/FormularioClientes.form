@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="FormularioClientes">
-  <grid id="27dc6" binding="panelFormulario" layout-manager="GridLayoutManager" row-count="9" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="panelFormulario" layout-manager="GridLayoutManager" row-count="10" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="10" left="10" bottom="10" right="10"/>
     <constraints>
       <xy x="20" y="49" width="746" height="419"/>
@@ -112,13 +112,13 @@
           <text value="Buscar por:"/>
         </properties>
       </component>
-      <component id="4a6b9" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
+      <component id="4a6b9" class="javax.swing.JComboBox" binding="comboSelect">
         <constraints>
           <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
       </component>
-      <component id="7564b" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+      <component id="7564b" class="javax.swing.JTextField" binding="textBuscar">
         <constraints>
           <grid row="2" column="3" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -133,6 +133,14 @@
           </grid>
         </constraints>
         <properties/>
+      </component>
+      <component id="c5da5" class="javax.swing.JButton" binding="botonMenu">
+        <constraints>
+          <grid row="9" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Volver a Menú"/>
+        </properties>
       </component>
     </children>
   </grid>
