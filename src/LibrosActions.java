@@ -7,7 +7,7 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class LibrosActions {
     static FormularioLibros formLibros;
-
+    /*metodo para guardar los campos en la base de datos con su consulta sql*/
     public static void guardarAction(JTextField textNombre, JTextField textAutor, JTextField textFechaPublicacion, JTextField textEditorial) {
         String nombre = Validations.validateNotBlank(textNombre);
         String autor = Validations.validateNotBlank(textAutor);
@@ -23,10 +23,10 @@ public class LibrosActions {
             JOptionPane.showMessageDialog(null, "Datos introducidos correctamente");
         } catch (SQLException e1) {
             // TODO Auto-generated catch block
-            JOptionPane.showMessageDialog(null, "Error al introducir los datos");
+            JOptionPane.showMessageDialog(null, "Error al introducir los datos","ERROR",JOptionPane.ERROR_MESSAGE);
         }
     }
-
+    /*metodo comun que setea valores tanto para guardar nuevos campos como actualizarlos*/
     private static void setStringsForColumns(String nombre, String autor, String fechaPublicacion, String editorial, PreparedStatement ps) throws SQLException {
         ps.setString(1, nombre);
         ps.setString(2, autor);
@@ -34,14 +34,14 @@ public class LibrosActions {
         ps.setString(4, editorial);
         ps.executeUpdate();
     }
-
+    /*metodo que limpia los campos, tanto en un boton como despues de cada consulta o error en consulta*/
     public static void limpiarAction(JTextField textNombre, JTextField textAutor, JTextField textFechaPublicacion, JTextField textEditorial) {
         textNombre.setText("");
         textAutor.setText("");
         textFechaPublicacion.setText("");
         textEditorial.setText("");
     }
-
+    /*metodo que llena la JList con todos los parametros de la base de datos mediante Result Set*/
     public static void llenarListaAction(JList<Object> lista) {
         DefaultListModel<Object> modeloLista = new DefaultListModel<>();
         lista.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
@@ -53,7 +53,8 @@ public class LibrosActions {
         }
         lista.setModel(modeloLista);
     }
-
+    /*accion comun de result set tanto para llenar la lista con todos los campos de la
+     base de datos como para llenarla con los resultados de la busqueda*/
     private static void llenarListaCommonAction(DefaultListModel<Object> modeloLista, PreparedStatement ps) throws SQLException {
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
@@ -65,7 +66,8 @@ public class LibrosActions {
             modeloLista.addElement(id + ", " + nombre + ", " + autor + ", " + fechaPublicacion + ", " + editorial);
         }
     }
-
+    /*metodo que recoge la id de el campo seleccionado en la lista y lo borra por id
+    en la base de datos*/
     public static void borrarAction(JList<Object> lista) {
         try {
             PreparedStatement ps = Biblioteca.getCon().prepareStatement("DELETE FROM " + "libros WHERE id = ?");
@@ -78,7 +80,8 @@ public class LibrosActions {
             JOptionPane.showMessageDialog(null, "Error al borrar el campo.","ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
-
+    /*metodo que actualiza los campos indicados una vez estos han sido validados, tomando la id del
+    campo seleccionado y cambiando los valores por los introducidos en los JTextField*/
     public static void actualizarAction(JTextField textNombre, JTextField textAutor, JTextField textFechaPublicacion, JTextField textEditorial, JList lista) {
         String nombre = Validations.validateNotBlank(textNombre);
         String autor = Validations.validateNotBlank(textAutor);
@@ -99,7 +102,8 @@ public class LibrosActions {
             JOptionPane.showMessageDialog(null, "Error al actualizar el campo");
         }
     }
-
+    //metodo que hace una busqueda recogiendo el indice del comboBox que hace cambiar la sentencia
+    //despues se llena la Jlist con la consulta seleccionada.
     public static void buscarTextAction(JComboBox comboSelect, JTextField textBuscar, JList lista) {
         int indice = comboSelect.getSelectedIndex();
         String sqlCombo = "";
@@ -125,14 +129,14 @@ public class LibrosActions {
             LibrosActions.llenarListaAction(lista);
         }
     }
-
+    /*metodo que crea un formulario de libros y lo hace visible*/
     public static void createFormularioLibroAction() {
         formLibros = new FormularioLibros();
         formLibros.setExtendedState(formLibros.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         formLibros.setVisible(true);
         formLibros.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
-
+    /*metodo que devuelve al menu, hace un formulario invisible y el otr visible*/
     public static void botonMenuAction() {
         Menu.menu.setVisible(true);
         formLibros.setVisible(false);

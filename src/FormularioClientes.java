@@ -34,6 +34,10 @@ public class FormularioClientes extends JFrame {
         botonBorrar();
         botonActualizar();
         textoBuscar();
+        botonMenu();
+    }
+
+    private void botonMenu() {
         botonMenu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

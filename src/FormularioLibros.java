@@ -24,16 +24,25 @@ public class FormularioLibros extends JFrame {
     private JComboBox<Object> comboSelect;
     private JTextField textBuscar;
     private JButton botonMenu;
-
     public FormularioLibros() {
+        /*todos metodos salvo algun que este especificado son actions Listeners de botones
+         o campos de texto*/
+        /*seteamos el contenido del formulario*/
         setContentPane(panelFormulario);
+        /*seteamos el contenido del comboBox comboSelect*/
         comboBoxSetItems();
         LibrosActions.llenarListaAction(lista);
         botonGuardar();
         botonLimpiar();
         botonBorrar();
         botonActualizar();
+        /*este action listener en concreto es un key listener que se activa cuando la
+         longitud del campo es mayor a 3, de esta manera se puede actualizar la lista en directo*/
         textoBuscar();
+        botonMenu();
+    }
+
+    private void botonMenu() {
         botonMenu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

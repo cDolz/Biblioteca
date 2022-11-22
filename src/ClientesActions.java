@@ -7,13 +7,14 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class ClientesActions {
     static FormularioClientes formClientes;
-
+    /*las actions realizadas en esta clase son exactamente iguales que las de la clase LibrosActions
+    y pueden ser consultadas en la misma*/
     public static void guardarAction(JTextField textDni, JTextField textNombre, JTextField textApellidos) {
         String dni = Validations.validateDni(textDni);
         String nombre = Validations.validateNotBlank(textNombre);
         String apellidos = Validations.validateNotBlank(textApellidos);
         if (dni.equals("") || nombre.equals("") || apellidos.equals("")) {
-            JOptionPane.showMessageDialog(null, "Algún campo está vacío", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Algún campo está vacío o en un formato incorrecto", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
         }
         try {
@@ -85,7 +86,7 @@ public class ClientesActions {
         String nombre = Validations.validateNotBlank(textNombre);
         String apellidos = Validations.validateNotBlank(textApellidos);
         if (dni.equals("") || nombre.equals("") || apellidos.equals("")) {
-            JOptionPane.showMessageDialog(null, "Algún campo está vacio", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Algún campo está vacio o en formato incorrecto", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
         }
         try {

@@ -12,16 +12,20 @@ public class Biblioteca {
     private static Connection con;
 
     public static void main(String[] args) {
-        conectar();
-        Menu.createMenuAction();
+        //Si conecta arranca, si no no se ejecuta nada.
+        if (conectar()){
+            Menu.createMenuAction();
+        }
     }
-
-    private static void conectar() {
+    //Método para conectar con metodo de Driver Manager y la ruta de mi BBDD
+    private static boolean conectar() {
         try {
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/biblioteca", "root", "");
             JOptionPane.showMessageDialog(null, "Conexion establecida");
+            return true;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al conectar", "ERROR", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
     }
 }

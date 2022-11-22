@@ -1,6 +1,8 @@
 import javax.swing.*;
 
 public class Validations {
+    /*Este metodo comprueba si el texto tiene algo escrito, retorna un string vacio que luego es
+    * comprobado con un equals*/
     public static String validateNotBlank(JTextField textField) {
         String textFill;
         if (!textField.getText().isBlank()) {
@@ -10,7 +12,8 @@ public class Validations {
             return "";
         }
     }
-
+    /*metodo mediante el cual al dni se le asigne la letra automaticamente, evitando así
+    * que el dni sea inventado*/
     public static String validateDni(JTextField textDni) {
         String dni;
         String[] asignarLetra = {"T", "R", "W", "A", "G", "M", "Y", "F", "P", "D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E"};
