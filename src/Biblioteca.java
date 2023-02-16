@@ -8,7 +8,6 @@ public class Biblioteca {
     public static Connection getCon() {
         return con;
     }
-
     private static Connection con;
 
     public static void main(String[] args) {

@@ -48,10 +48,11 @@ public class ClientesActions {
     private static void llenarListaCommonAction(DefaultListModel<Object> modeloLista, PreparedStatement ps) throws SQLException {
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
+            int id = rs.getInt("id");
             String dni = rs.getString("dni");
             String nombre = rs.getString("nombre");
             String apellidos = rs.getString("apellidos");
-            modeloLista.addElement(dni + ", " + nombre + ", " + apellidos);
+            modeloLista.addElement(id + ", " + dni + ", " + nombre + ", " + apellidos);
         }
     }
 
@@ -70,10 +71,10 @@ public class ClientesActions {
 
     public static void borrarAction(JList<Object> lista) {
         try {
-            PreparedStatement ps = Biblioteca.getCon().prepareStatement("DELETE FROM " + "clientes WHERE dni = ?");
+            PreparedStatement ps = Biblioteca.getCon().prepareStatement("DELETE FROM " + "clientes WHERE id = ?");
             String campo = String.valueOf(lista.getSelectedValue());
-            String[] dni = campo.split(",", -1);
-            ps.setString(1, dni[0]);
+            String[] id = campo.split(",", -1);
+            ps.setString(1, id[0]);
             ps.execute();
             llenarLista(lista);
         } catch (SQLException | NumberFormatException ex) {

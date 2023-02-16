@@ -1,8 +1,5 @@
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -35,6 +32,52 @@ public class FormularioClientes extends JFrame {
         botonActualizar();
         textoBuscar();
         botonMenu();
+        textNombre.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (Character.isDigit(c)) {
+                    evt.consume();
+                } else if (c<=64  || c>122 || (c>90 && c<97)) {
+                    if (c != 32) {
+                        evt.consume();
+                    }
+                }
+            }
+        });
+        textApellidos.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (Character.isDigit(c)) {
+                    evt.consume();
+                } else if (c<=64  || c>122 || (c>90 && c<97)) {
+                    if (c != 32) {
+                        evt.consume();
+                    }
+                }
+            }
+        });
+        textDni.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!Character.isDigit(c)) {
+                    evt.consume();
+                } else {
+                    Validations.validarLongitudDni(textDni.getText(), evt);
+                }
+            }
+        });
+        textDni.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                if(textDni.getText().length() != 8 && !textDni.getText().equals("")){
+                    JOptionPane.showMessageDialog(null, "no Existen DNI de menos de 8 números.");
+                    textDni.requestFocus();
+                }
+            }
+        });
     }
 
     private void botonMenu() {

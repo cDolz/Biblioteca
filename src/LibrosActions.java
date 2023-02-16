@@ -8,12 +8,17 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 public class LibrosActions {
     static FormularioLibros formLibros;
     /*metodo para guardar los campos en la base de datos con su consulta sql*/
-    public static void guardarAction(JTextField textNombre, JTextField textAutor, JTextField textFechaPublicacion, JTextField textEditorial) {
+    public static void guardarAction(JTextField textNombre, JTextField textAutor,
+                                     JTextField textAnno, JTextField textMes,JTextField textDia,
+                                     JTextField textEditorial) {
         String nombre = Validations.validateNotBlank(textNombre);
         String autor = Validations.validateNotBlank(textAutor);
-        String fechaPublicacion = Validations.validateNotBlank(textFechaPublicacion);
+        String anno = Validations.validateNotBlank(textAnno);
+        String mes = Validations.validateNotBlank(textMes);
+        String dia = Validations.validateNotBlank(textDia);
         String editorial = Validations.validateNotBlank(textEditorial);
-        if (nombre.equals("") || autor.equals("") || fechaPublicacion.equals("") || editorial.equals("")) {
+        String fechaPublicacion = (anno + "-" + mes + "-" +dia);
+        if (nombre.equals("") || autor.equals("") || anno.equals("") || mes.equals("") || dia.equals("") || editorial.equals("")) {
             JOptionPane.showMessageDialog(null, "Algún campo está vacio", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -35,10 +40,14 @@ public class LibrosActions {
         ps.executeUpdate();
     }
     /*metodo que limpia los campos, tanto en un boton como despues de cada consulta o error en consulta*/
-    public static void limpiarAction(JTextField textNombre, JTextField textAutor, JTextField textFechaPublicacion, JTextField textEditorial) {
+    public static void limpiarAction(JTextField textNombre, JTextField textAutor,
+                                     JTextField textAnno, JTextField textMes,JTextField textDia,
+                                     JTextField textEditorial) {
         textNombre.setText("");
         textAutor.setText("");
-        textFechaPublicacion.setText("");
+        textAnno.setText("");
+        textMes.setText("");
+        textDia.setText("");
         textEditorial.setText("");
     }
     /*metodo que llena la JList con todos los parametros de la base de datos mediante Result Set*/
@@ -82,12 +91,18 @@ public class LibrosActions {
     }
     /*metodo que actualiza los campos indicados una vez estos han sido validados, tomando la id del
     campo seleccionado y cambiando los valores por los introducidos en los JTextField*/
-    public static void actualizarAction(JTextField textNombre, JTextField textAutor, JTextField textFechaPublicacion, JTextField textEditorial, JList lista) {
+    public static void actualizarAction(JTextField textNombre, JTextField textAutor,JTextField textAnno,
+                                        JTextField textMes,JTextField textDia,
+                                         JTextField textEditorial,
+                                        JList lista) {
         String nombre = Validations.validateNotBlank(textNombre);
         String autor = Validations.validateNotBlank(textAutor);
-        String fechaPublicacion = Validations.validateNotBlank(textFechaPublicacion);
+        String anno = Validations.validateNotBlank(textAnno);
+        String mes = Validations.validateNotBlank(textMes);
+        String dia = Validations.validateNotBlank(textDia);
         String editorial = Validations.validateNotBlank(textEditorial);
-        if (nombre.equals("") || autor.equals("") || fechaPublicacion.equals("") || editorial.equals("")) {
+        String fechaPublicacion = (anno + "-" + mes + "-" +dia);
+        if (nombre.equals("") || autor.equals("") || anno.equals("") || mes.equals("") || dia.equals("") || editorial.equals("")) {
             JOptionPane.showMessageDialog(null, "Algún campo está vacio", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
         }

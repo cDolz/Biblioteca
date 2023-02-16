@@ -1,15 +1,12 @@
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 
 public class FormularioLibros extends JFrame {
     private JTextField textNombre;
     private JLabel nombre;
     private JLabel autor;
     public JTextField textAutor;
-    private JTextField textFechaPublicacion;
+    private JTextField textAnno;
     private JLabel editorial;
     private JTextField textEditorial;
     private JLabel fechaPublicacion;
@@ -24,6 +21,12 @@ public class FormularioLibros extends JFrame {
     private JComboBox<Object> comboSelect;
     private JTextField textBuscar;
     private JButton botonMenu;
+    private JTextField textMes;
+    private JTextField textDia;
+    private JLabel labelAnno;
+    private JLabel labelMes;
+    private JLabel diaLabel;
+
     public FormularioLibros() {
         /*todos metodos salvo algun que este especificado son actions Listeners de botones
          o campos de texto*/
@@ -40,6 +43,105 @@ public class FormularioLibros extends JFrame {
          longitud del campo es mayor a 3, de esta manera se puede actualizar la lista en directo*/
         textoBuscar();
         botonMenu();
+        textAnno.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!Character.isDigit(c)) {
+                    evt.consume();
+                } else {
+                    Validations.validarAño(textAnno.getText(), evt);
+                }
+            }
+        });
+        textMes.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!Character.isDigit(c)) {
+                    evt.consume();
+                } else {
+                    Validations.validarMes(textMes.getText(), evt);
+                }
+            }
+        });
+        textDia.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!Character.isDigit(c)) {
+                    evt.consume();
+                } else {
+                    Validations.validarDia(textDia.getText(), textMes.getText(), evt);
+                }
+            }
+        });
+        textNombre.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (Character.isDigit(c)) {
+                    evt.consume();
+                } else if (c<=64  || c>122 || (c>90 && c<97)) {
+                    if (c != 32) {
+                        evt.consume();
+                    }
+                }
+            }
+        });
+        textAutor.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (Character.isDigit(c)) {
+                    evt.consume();
+                } else if (c<=64  || c>122 || (c>90 && c<97)) {
+                    if (c != 32) {
+                        evt.consume();
+                    }
+                }
+            }
+        });
+        textEditorial.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (Character.isDigit(c)) {
+                    evt.consume();
+                } else if (c<=64  || c>122 || (c>90 && c<97)) {
+                    if (c != 32) {
+                        evt.consume();
+                    }
+                }
+            }
+        });
+        textAnno.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                if(textAnno.getText().length() != 4 && !textAnno.getText().equals("")){
+                    JOptionPane.showMessageDialog(null, "El año debe ser mayor que 1000");
+                    textAnno.requestFocus();
+                }
+            }
+        });
+        textMes.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                if(textMes.getText().equals("0") || textMes.getText().equals("00")){
+                    JOptionPane.showMessageDialog(null, "El mes no puede ser 0.");
+                    textMes.requestFocus();
+                }
+            }
+        });
+        textDia.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                if(textDia.getText().equals("0") || textDia.getText().equals("00")){
+                    JOptionPane.showMessageDialog(null, "El dia no puede ser 0.");
+                    textDia.requestFocus();
+                }
+            }
+        });
     }
 
     private void botonMenu() {
@@ -74,9 +176,9 @@ public class FormularioLibros extends JFrame {
         botonActualizar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                LibrosActions.actualizarAction(textNombre, textAutor, textFechaPublicacion, textEditorial, lista);
+                LibrosActions.actualizarAction(textNombre, textAutor, textAnno,textMes,textDia, textEditorial, lista);
                 LibrosActions.llenarListaAction(lista);
-                LibrosActions.limpiarAction(textNombre, textAutor, textFechaPublicacion, textEditorial);
+                LibrosActions.limpiarAction(textNombre, textAutor, textAnno,textMes,textDia, textEditorial);
             }
         });
     }
@@ -92,7 +194,7 @@ public class FormularioLibros extends JFrame {
     private void botonLimpiar() {
         botonLimpiar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                LibrosActions.limpiarAction(textNombre, textAutor, textFechaPublicacion, textEditorial);
+                LibrosActions.limpiarAction(textNombre, textAutor, textAnno,textMes,textDia, textEditorial);
             }
         });
     }
@@ -100,9 +202,10 @@ public class FormularioLibros extends JFrame {
     private void botonGuardar() {
         botonGuardar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                LibrosActions.guardarAction(textNombre, textAutor, textFechaPublicacion, textEditorial);
+                LibrosActions.guardarAction(textNombre, textAutor, textAnno ,textMes
+                        ,textDia, textEditorial);
                 LibrosActions.llenarListaAction(lista);
-                LibrosActions.limpiarAction(textNombre, textAutor, textFechaPublicacion, textEditorial);
+                LibrosActions.limpiarAction(textNombre, textAutor, textAnno,textMes,textDia, textEditorial);
             }
         });
     }

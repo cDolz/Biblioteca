@@ -6,6 +6,7 @@ public class Menu extends JFrame{
     private JButton botonALibros;
     private JButton botonAClientes;
     private JPanel panelMenu;
+    private JButton botonAPrestamos;
     static Menu menu;
     public Menu() {
         //indicamos los componentes de mi panel
@@ -25,6 +26,13 @@ public class Menu extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 ClientesActions.createFormularioClienteAction();
+                menu.setVisible(false);
+            }
+        });
+        botonAPrestamos.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PrestamosActions.createFormularioPrestamosAction();
                 menu.setVisible(false);
             }
         });
