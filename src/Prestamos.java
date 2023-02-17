@@ -183,6 +183,7 @@ public class Prestamos extends JFrame{
                 }
                 PrestamosActions.guardarAction(textAnno1,textDia1,textMes1,textAnno2
                         ,textMes2,textDia2,idCliente[0],idLibros[0]);
+                PrestamosActions.llenarLista(listaPrestamos);
             }
         });
         botonActualizar.addActionListener(new ActionListener() {
@@ -208,6 +209,7 @@ public class Prestamos extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 PrestamosActions.borrarAction(listaPrestamos);
+                PrestamosActions.llenarLista(listaPrestamos);
             }
         });
     }
