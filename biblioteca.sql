@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-11-2022 a las 18:07:43
--- Versión del servidor: 10.4.25-MariaDB
--- Versión de PHP: 8.1.10
+-- Tiempo de generación: 17-02-2023 a las 08:10:37
+-- Versión del servidor: 10.4.27-MariaDB
+-- Versión de PHP: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,25 +28,22 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `clientes` (
-  `dni` varchar(10) NOT NULL,
-  `nombre` varchar(25) NOT NULL,
-  `apellidos` varchar(25) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id` int(9) NOT NULL,
+  `dni` varchar(100) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `apellidos` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `clientes`
 --
 
-INSERT INTO `clientes` (`dni`, `nombre`, `apellidos`) VALUES
-('10101010P', 'Juandi', 'Apruébame Por Favor'),
-('13121312L', 'Isabel', 'Díaz Ayuso'),
-('50455327C', 'Jose Luis', 'Martinez Almeida'),
-('50673456V', 'Carmina', 'Barrios López'),
-('50864325D', 'Maria del Carmen', 'Lopez Gutierrez'),
-('50876325A', 'Juana', 'López Álvarez'),
-('50896538E', 'Carlos', 'Dolz Martín'),
-('50976845J', 'Rodrigo', 'Fiu Fiu'),
-('66666666Q', 'Juan Carlos', 'de Borbón y Borbón');
+INSERT INTO `clientes` (`id`, `dni`, `nombre`, `apellidos`) VALUES
+(1, '50776812B', 'Carlos', 'Dolz Martín'),
+(4, '65677875H', 'Paco', 'Gonzalez Perez'),
+(5, '66558877M', 'Paco', 'Jimenez Los Santos'),
+(6, '68123476Y', 'Basilio', 'Rodriguez Lopez'),
+(7, '66557744E', 'Anastasia', 'Campos Lopez');
 
 -- --------------------------------------------------------
 
@@ -58,25 +55,34 @@ CREATE TABLE `libros` (
   `id` int(9) NOT NULL,
   `nombre` varchar(100) NOT NULL,
   `autor` varchar(100) NOT NULL,
-  `fechapublicacion` varchar(50) NOT NULL,
+  `fechaPublicacion` date NOT NULL,
   `editorial` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `libros`
 --
 
-INSERT INTO `libros` (`id`, `nombre`, `autor`, `fechapublicacion`, `editorial`) VALUES
-(1, 'Crepúsculo', 'Stephenie Meyer', '5 de octubre de 2005', 'Alfaguara'),
-(2, 'Luna nueva', 'Stephenie Meyer', '21 de agosto de 2006', 'Alfaguara'),
-(3, 'Eclipse', 'Stephenie Meyer', '7 de agosto de 2007', 'Alfaguara'),
-(4, 'Amanecer', 'Stephenie Meyer', '2 de agosto de 2008', 'Alfaguara'),
-(5, 'Memorias de Idhún I: La Resistencia', 'Laura Gallego García', '23 de septiembre de 2004', 'SM'),
-(6, 'Memorias de Idhún II: Tríada', 'Laura Gallego García', '7 de octubre de 2005', 'SM'),
-(7, 'Memorias de Idhún III: Panteón', 'Laura Gallego García', '14 de octubre de 2006', 'SM'),
-(8, 'La Comunidad del Anillo', 'J. R. R. Tolkien', '29 de julio de 1954', 'Ediciones Minotauro'),
-(9, 'Las dos torres', 'J. R. R. Tolkien', '11 de noviembre de 1954', 'Ediciones Minotauro'),
-(10, 'El retorno del Rey', 'J. R. R. Tolkien', '20 de octubre de 1955', 'Ediciones Minotauro');
+INSERT INTO `libros` (`id`, `nombre`, `autor`, `fechaPublicacion`, `editorial`) VALUES
+(1, 'Harry Potter y la piedra filosofal', 'J K Rowling', '1997-06-26', 'Salamandra'),
+(5, 'Memorias de Idhun La Resistencia', 'Laura Gallego Garcia', '2004-12-23', 'SM'),
+(6, 'Memorias de Idhun III Panteon', 'Laura Gallego Garcia', '2006-10-14', 'SM'),
+(7, 'Harry Potter y el caliz de fuego', 'J K Rowling', '2000-07-08', 'Salamandra'),
+(8, 'Cincuenta sombras de Grey', 'E L James', '2011-05-25', 'Grijalbo');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `prestamos`
+--
+
+CREATE TABLE `prestamos` (
+  `id` int(9) NOT NULL,
+  `fechaInicio` date NOT NULL,
+  `fechaDevolucion` date NOT NULL,
+  `id_cliente` int(9) NOT NULL,
+  `id_libro` int(9) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Índices para tablas volcadas
@@ -86,7 +92,7 @@ INSERT INTO `libros` (`id`, `nombre`, `autor`, `fechapublicacion`, `editorial`) 
 -- Indices de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  ADD PRIMARY KEY (`dni`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `libros`
@@ -95,14 +101,34 @@ ALTER TABLE `libros`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `prestamos`
+--
+ALTER TABLE `prestamos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_libro` (`id_libro`),
+  ADD KEY `id_cliente` (`id_cliente`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `clientes`
+--
+ALTER TABLE `clientes`
+  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `libros`
 --
 ALTER TABLE `libros`
-  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT de la tabla `prestamos`
+--
+ALTER TABLE `prestamos`
+  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
